@@ -1,0 +1,30 @@
+{
+  "name": "jsholdem",
+  "version": "1.0.0",
+  "description": "Heads Up Texas Hold Em Poker built with angularjs, featuring a stupid-simple AI opponent :)",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williapa/jsholdem.git"
+  },
+  "keywords": [
+    "poker",
+    "angularjs",
+    "texas",
+    "hold",
+    "'em",
+    "ai"
+  ],
+  "author": "paul williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/williapa/jsholdem/issues"
+  },
+  "homepage": "https://github.com/williapa/jsholdem#readme",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}

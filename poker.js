@@ -1,35 +1,34 @@
 //uncomment this section to run pokertest.js with node
-/*module.exports = {
-	determineWinner: determineWinner,
-	Card: Card,
-	Player: Player,
-	Deck: Deck,
-	sortByRank: sortByRank,
-	sortBySuit: sortBySuit,
-	flushRank: flushRank,
-	straightRank: straightRank,
-	straightFlushRank: straightFlushRank,
-	getFlushCards: getFlushCards,
-	straightFlushRank: straightFlushRank,
-	FOAKrank: FOAKrank,
-	TOAKrank: TOAKrank,
-	twoPairRank: twoPairRank,
-	pairRank: pairRank,
-	fullHouseRank: fullHouseRank,
-	highCardRank: highCardRank,
-	handStrength: handStrength
-};*/ 
+module.exports = {
+  determineWinner: determineWinner,
+  Card: Card,
+  Player: Player,
+  Deck: Deck,
+  sortByRank: sortByRank,
+  sortBySuit: sortBySuit,
+  flushRank: flushRank,
+  straightRank: straightRank,
+  straightFlushRank: straightFlushRank,
+  getFlushCards: getFlushCards,
+  FOAKrank: FOAKrank,
+  TOAKrank: TOAKrank,
+  twoPairRank: twoPairRank,
+  pairRank: pairRank,
+  fullHouseRank: fullHouseRank,
+  highCardRank: highCardRank,
+  handStrength: handStrength
+};
 
 function determineWinner(player1, player2, boardcards){
   var p1hand, p2hand;
 
   if(player1.hand){
     p1hand = player1.hand.concat(boardcards);
- 	p2hand = player2.hand.concat(boardcards);
+   p2hand = player2.hand.concat(boardcards);
   }
   else{
- 	p1hand = player1.concat(boardcards);
- 	p2hand = player2.concat(boardcards);
+   p1hand = player1.concat(boardcards);
+   p2hand = player2.concat(boardcards);
   }
 
   var p1rank = 0, p2rank = 0;
@@ -45,41 +44,41 @@ function determineWinner(player1, player2, boardcards){
   }
 
   if(p2rank == p1rank && p1rank != 0){
- 	//if you have a straight flush tie it can't be resolved (hand uses 5 cards)
- 	return 'TIE';
+   //if you have a straight flush tie it can't be resolved (hand uses 5 cards)
+   return 'TIE';
   }
 
   p1rank = FOAKrank(p1hand);
   p2rank = FOAKrank(p2hand);
 
   if(p1rank > p2rank){
-	return player1;
+  return player1;
   }
   if(p2rank > p1rank){
- 	return player2;
+   return player2;
   }
   if(p2rank == p1rank && p1rank != 0){
-	var tie = resolveTie(p1hand, p2hand, "FOAK", p1rank);
-	if(tie == "tie"){
+  var tie = resolveTie(p1hand, p2hand, "FOAK", p1rank);
+  if(tie == "tie"){
       return "TIE";
- 	}
- 	else if(tie == "player1"){
- 	  return player1;
- 	}
- 	else{
- 	  return player2;
- 	}
+   }
+   else if(tie == "player1"){
+     return player1;
+   }
+   else{
+     return player2;
+   }
   }
 
   p1rank = fullHouseRank(p1hand);
   p2rank = fullHouseRank(p2hand);
 
   if(p1rank > p2rank){
- 	return player1;
+   return player1;
   }
 
   if(p2rank > p1rank){
-	return player2;
+  return player2;
   }
 
   if(p2rank == p1rank && p1rank != 0){
@@ -91,73 +90,73 @@ function determineWinner(player1, player2, boardcards){
   p2rank = flushRank(p2hand);
 
   if(p1rank > p2rank){
-	return player1;
+  return player1;
   }
 
   if(p2rank > p1rank){
-	return player2;
+  return player2;
   }
 
   if(p2rank == p1rank && p1rank != 0){
-	var tie = resolveTie(p1hand, p2hand, "FLUSH", p1rank);
-	if(tie == "tie"){
+  var tie = resolveTie(p1hand, p2hand, "FLUSH", p1rank);
+  if(tie == "tie"){
       return "TIE";
- 	}
- 	else if(tie == "player1"){
- 	  return player1;
- 	}
- 	else{
- 	  return player2;
- 	}
- 	//return 'TIE';
+   }
+   else if(tie == "player1"){
+     return player1;
+   }
+   else{
+     return player2;
+   }
+   //return 'TIE';
   }
 
   p1rank = straightRank(p1hand);
   p2rank = straightRank(p2hand);
 
   if(p1rank > p2rank){
- 	return player1;
+   return player1;
   }
 
   if(p2rank > p1rank){
-	return player2;
+  return player2;
   }
 
   if(p2rank == p1rank && p1rank != 0){
-	return 'TIE';
+  return 'TIE';
   }
 
   p1rank = TOAKrank(p1hand);
   p2rank = TOAKrank(p2hand);
 
   if(p1rank > p2rank){
-	return player1;
+  return player1;
   }
 
   if(p2rank > p1rank){
-	return player2;
+  return player2;
   }
 
   if(p2rank == p1rank && p1rank != 0){
-	var tie = resolveTie(p1hand, p2hand, "TOAK", p1rank);
-	if(tie == "tie"){
+  var tie = resolveTie(p1hand, p2hand, "TOAK", p1rank);
+  if(tie == "tie"){
       return "TIE";
- 	}
- 	else if(tie =="player1"){
- 	  return player1;
- 	}
- 	else{
- 	  return player2;
- 	}
+   }
+   else if(tie =="player1"){
+     return player1;
+   }
+   else{
+     return player2;
+   }
 
- 	//return 'TIE';
+   //return 'TIE';
   }
 
   p1rank = twoPairRank(p1hand);
   p2rank = twoPairRank(p2hand);
 
   if(p1rank > p2rank){
-	return player1;
+  return player1;
   }
 
   if(p2rank > p1rank){
@@ -166,52 +165,52 @@ function determineWinner(player1, player2, boardcards){
 
   if(p2rank == p1rank && p1rank != 0){
     var tie = resolveTie(p1hand, p2hand, "TWOPAIR", p1rank);
- 			
- 	if(tie == "tie"){
- 	  return "TIE";
- 	}
- 	else if(tie == "player1"){
- 	  return player1;
- 	}
- 	else{
- 	  return player2;
- 	}
- 	//return 'TIE';
+       
+   if(tie == "tie"){
+     return "TIE";
+   }
+   else if(tie == "player1"){
+     return player1;
+   }
+   else{
+     return player2;
+   }
+   //return 'TIE';
   }
 
   p1rank = pairRank(p1hand);
   p2rank = pairRank(p2hand);
 
   if(p1rank > p2rank){
-	return player1;
+  return player1;
   }
 
   if(p2rank > p1rank){
-	return player2;
+  return player2;
   }
 
   if(p2rank == p1rank && p1rank != 0){
- 	var tie = resolveTie(p1hand, p2hand, "PAIR", p1rank);
- 	if(tie == "tie"){
- 	  return "TIE";
- 	}
- 	else if(tie == "player1"){
- 	  return player1;
- 	}
- 	else{
- 	  return player2;
- 	}
+   var tie = resolveTie(p1hand, p2hand, "PAIR", p1rank);
+   if(tie == "tie"){
+     return "TIE";
+   }
+   else if(tie == "player1"){
+     return player1;
+   }
+   else{
+     return player2;
+   }
   }
 
   p1rank = highCardRank(p1hand);
   p2rank = highCardRank(p2hand);
 
   if(p1rank > p2rank){
-	return player1;
+  return player1;
   }
 
   if(p2rank > p1rank){
-	return player2;
+  return player2;
   }
   var tie = resolveTie(p1hand, p2hand, "highcard", p1rank);	
   if(tie == "tie"){
@@ -273,11 +272,11 @@ function Deck(){
   };
 
   this.shuffle = function(){
-  	this.cards = shuffle (this.cards);
+    this.cards = shuffle (this.cards);
   };
 
   this.deal = function(){
-  	return this.cards.shift();
+    return this.cards.shift();
   };
 
   return this;
@@ -285,17 +284,17 @@ function Deck(){
 
 function sortByRank (cards){
   return cards.sort(function(a,b){
-  	if(a.rank > b.rank) return -1;
-	if(a.rank < b.rank) return 1;
+    if(a.rank > b.rank) return -1;
+  if(a.rank < b.rank) return 1;
     return 0;
   });
 }
 
 function sortBySuit(cards){
   return cards.sort( function(a,b){
-  	if(a.suit > b.suit) return -1;
-  	if(a.suit < b.suit) return 1;
-  	return 0;
+    if(a.suit > b.suit) return -1;
+    if(a.suit < b.suit) return 1;
+    return 0;
   });
 }
 
@@ -304,52 +303,50 @@ function flushRank(cards){
   spadesCount = 0, heartsCount = 0, diamondsCount = 0, clubsCount = 0;
   
   for(var i = 0; i < cards.length; i++){
-			
-	if(cards[i].suit == "s") spadesCount++;
+      
+  if(cards[i].suit == "s") spadesCount++;
 
-	if(cards[i].suit == "h") heartsCount++;
+  if(cards[i].suit == "h") heartsCount++;
 
-	if(cards[i].suit == "d") diamondsCount++;
+  if(cards[i].suit == "d") diamondsCount++;
 
-	if(cards[i].suit == "c") clubsCount++;
+  if(cards[i].suit == "c") clubsCount++;
   };
 
   if( spadesCount > 4  || heartsCount > 4 || diamondsCount > 4 || clubsCount > 4){
-	return sortByRank(getFlushCards(cards))[0].rank;
+  return sortByRank(getFlushCards(cards))[0].rank;
   };
 
   return 0;
 }
 
-function straightRank(cards){
+function straightRank(cards) {
   var hand = sortByRank(cards);
+  var highestStraight = 0; // Keep track of the highest straight found
 
-  for(var i = 1; i < 11; i++){
-	haslowcard = false, hastwocard = false, hasthreecard = false, hasfourcard = false, hashighcard = false;
-	lowcard = i;
-	twocard = i+1;
-	threecard = i+2;
-	fourcard = i+3;
-	highcard = i+4;
+  for (var i = 1; i < 11; i++) {
+    var hasLowCard = false, hasTwoCard = false, hasThreeCard = false, hasFourCard = false, hasHighCard = false;
+    var lowCard = i, twoCard = i + 1, threeCard = i + 2, fourCard = i + 3, highCard = i + 4;
 
-	if(i == 1){
-	  lowcard = 14;
-	};
+    if (i == 1) { // Special case for Ace
+      lowCard = 14; // Ace is considered as the lowest card in a straight
+    }
 
-	for(var j = 0; j < hand.length; j++){
-      if(hand[j].rank == lowcard) haslowcard = true;
-      if(hand[j].rank == twocard) hastwocard = true;
-      if(hand[j].rank == threecard) hasthreecard = true;
-      if(hand[j].rank == fourcard) hasfourcard = true;
-      if(hand[j].rank == highcard) hashighcard = true;
-	};
+    for (var j = 0; j < hand.length; j++) {
+      if (hand[j].rank == lowCard) hasLowCard = true;
+      if (hand[j].rank == twoCard) hasTwoCard = true;
+      if (hand[j].rank == threeCard) hasThreeCard = true;
+      if (hand[j].rank == fourCard) hasFourCard = true;
+      if (hand[j].rank == highCard) hasHighCard = true;
+    }
 
-	if(haslowcard && hastwocard && hasthreecard && hasfourcard && hashighcard){
-      return highcard;	
-	}; 
-  };
+    // Check if all five cards are present to form a straight
+    if (hasLowCard && hasTwoCard && hasThreeCard && hasFourCard && hasHighCard) {
+      highestStraight = Math.max(highestStraight, highCard); // Update if this straight is the highest found
+    }
+  }
 
-  return 0;
+  return highestStraight; // Return the highest straight found, or 0 if none
 }
 
 function getFlushCards (cards){
@@ -365,17 +362,17 @@ function getFlushCards (cards){
 
   for(var i = 0; i < cards.length; i++){
 
-	if(cards[i].suit == "s") spades.push(cards[i]);
+  if(cards[i].suit == "s") spades.push(cards[i]);
 
-	if(cards[i].suit == "h") hearts.push(cards[i]);
+  if(cards[i].suit == "h") hearts.push(cards[i]);
 
-	if(cards[i].suit == "d") diamonds.push(cards[i]);
+  if(cards[i].suit == "d") diamonds.push(cards[i]);
 
-	if(cards[i].suit == "c") clubs.push(cards[i]);
+  if(cards[i].suit == "c") clubs.push(cards[i]);
   };
 
   if(spades.length > 4) return spades;
-		
+    
   if(hearts.length > 4) return hearts;
 
   if(clubs.length > 4) return clubs;
@@ -397,9 +394,9 @@ function straightFlushRank (cards){
     flushcards.splice(5,2);
     var sr = straightRank(flushcards);
 
-	if(sr > 0){
-	  return sr;
-	};
+  if(sr > 0){
+    return sr;
+  };
   };
 
   return 0;
@@ -413,7 +410,7 @@ function FOAKrank(cards){
 
   for(var i = 0; i < hand.length - 3; i++){
 
-  	if(hand[i].rank == hand[i+1].rank && hand[i+1].rank == hand[i+2].rank && hand[i+2].rank == hand[i+3].rank) return hand[i].rank;
+    if(hand[i].rank == hand[i+1].rank && hand[i+1].rank == hand[i+2].rank && hand[i+2].rank == hand[i+3].rank) return hand[i].rank;
   };
 
   return foakRank;
@@ -442,30 +439,30 @@ function twoPairRank (cards){
 
   for(var i = 0; i < hand.length-1; i++){
 
-	if(hand[i].rank == hand[i+1].rank && pairOneRank == 0){
+  if(hand[i].rank == hand[i+1].rank && pairOneRank == 0){
 
       pairOneRank = hand[i].rank;
-	};
+  };
   };
 
   if(pairOneRank > 0){
  
-	pairTwoRank = 0;
+  pairTwoRank = 0;
 
-	for(var i = 0; i < hand.length-1; i++){
+  for(var i = 0; i < hand.length-1; i++){
 
       if(hand[i].rank != pairOneRank && hand[i+1].rank == hand[i].rank && pairTwoRank == 0){
 
-		pairTwoRank = hand[i].rank;
-	  };
+    pairTwoRank = hand[i].rank;
+    };
     };
   };
 
   if(pairOneRank > 0 && pairTwoRank > 0){
 
-	return pairOneRank*10 + pairTwoRank;
+  return pairOneRank*10 + pairTwoRank;
   };
-		
+    
   return 0;
 }
 
@@ -475,9 +472,9 @@ function pairRank(cards) {
   pairOneRank = 0;
 
   for(var i = 0; i < hand.length - 1; i++){
- 	if(hand[i].rank == hand[i+1].rank && pairOneRank == 0){
+   if(hand[i].rank == hand[i+1].rank && pairOneRank == 0){
       pairOneRank = hand[i].rank;
-	}
+  }
   }
   return pairOneRank;
 }
@@ -487,13 +484,13 @@ function fullHouseRank (cards){
   toakRank = TOAKrank(cards);
 
   if(toakRank > 0){
-	pRank = 0;
-	for(var i = 0; i < cards.length-1; i++){
+  pRank = 0;
+  for(var i = 0; i < cards.length-1; i++){
       if(cards[i].rank == cards[i+1].rank && toakRank != cards[i].rank && pRank == 0){
-		pRank = cards[i].rank;
-		return toakRank*10+pRank;
-  	  }
-	}
+    pRank = cards[i].rank;
+    return toakRank*10+pRank;
+      }
+  }
   }
 
   return 0;
@@ -537,217 +534,217 @@ function resolveTie(p1hand, p2hand, handStrength, handRank){
 
   if(handStrength == "FOAK"){
     var p1cards = p1hand.filter(function(val){
-	  return (val.rank !== handRank);
-	});
-	var p2cards = p1hand.filter(function(val){
-	  return (val.rank !== handrank);
-	});
+    return (val.rank !== handRank);
+  });
+  var p2cards = p1hand.filter(function(val){
+    return (val.rank !== handrank);
+  });
 
-	p1cards = sortByRank(p1cards);
-	p2cards = sortByRank(p2cards);
+  p1cards = sortByRank(p1cards);
+  p2cards = sortByRank(p2cards);
 
-	if(p1cards[0].rank > p2cards[0].rank){
-	  return "player1";
-	}
-	else if(p1cards[0].rank < p2cards[0].rank){
-	  return "player2";
-	}
-	else {
-	  return "tie";
-	}
+  if(p1cards[0].rank > p2cards[0].rank){
+    return "player1";
+  }
+  else if(p1cards[0].rank < p2cards[0].rank){
+    return "player2";
+  }
+  else {
+    return "tie";
+  }
   }
 
   else if(handStrength == "FLUSH"){
     var p1cards = getFlushCards(p1hand);
-	var p2cards = getFlushCards(p2hand);
+  var p2cards = getFlushCards(p2hand);
 
-	p1cards = sortByRank(p1cards);
-	p2cards = sortByRank(p2cards);
+  p1cards = sortByRank(p1cards);
+  p2cards = sortByRank(p2cards);
 
-	for(var i = 0; i < p1cards.length; i++){
+  for(var i = 0; i < p1cards.length; i++){
       if(p1cards[i].rank > p2cards[i].rank){
-		return "player1";
-	  }
-	  else if(p2cards[i].rank > p1cards[i].rank){
-	    return "player2";
-	  }
-	}
-	return "tie";
+    return "player1";
+    }
+    else if(p2cards[i].rank > p1cards[i].rank){
+      return "player2";
+    }
+  }
+  return "tie";
   }
 
   else if(handStrength == "TOAK"){
-	var p1cards = p1hand.filter(function(val){
-  	  return (val.rank !== handRank);
-	});
-	var p2cards = p2hand.filter(function(val){
-	  return (val.rank !== handRank);
-	});
+  var p1cards = p1hand.filter(function(val){
+      return (val.rank !== handRank);
+  });
+  var p2cards = p2hand.filter(function(val){
+    return (val.rank !== handRank);
+  });
 
-	var p1cards = sortByRank(p1cards);
-	var p2cards = sortByRank(p2cards);
+  var p1cards = sortByRank(p1cards);
+  var p2cards = sortByRank(p2cards);
 
-	for(var i = 0; i < 2; i++){
-	  if(p1cards[i].rank > p2cards[i].rank){
-	 	return "player1";
-	  }
-	  else if(p2cards[i].rank > p1cards[i].rank){
-		return "player2";
-	  }
-	}
-	return "tie";
+  for(var i = 0; i < 2; i++){
+    if(p1cards[i].rank > p2cards[i].rank){
+     return "player1";
+    }
+    else if(p2cards[i].rank > p1cards[i].rank){
+    return "player2";
+    }
+  }
+  return "tie";
   }
 
   else if(handStrength == "TWOPAIR"){
 
-	//sort hands by rank, first card that isn't pair is the strength
-	var p1cards = sortByRank(p1hand);
-	var p2cards = sortByRank(p2hand);
-	var pairs = [];
+  //sort hands by rank, first card that isn't pair is the strength
+  var p1cards = sortByRank(p1hand);
+  var p2cards = sortByRank(p2hand);
+  var pairs = [];
 
-	for(var i = 0; i < p1cards.length-1; i++){
-  	  if(p1cards[i].rank == p1cards[i+1].rank){
-	    pairs.push(p1cards[i].rank);
-	  }
-	}
+  for(var i = 0; i < p1cards.length-1; i++){
+      if(p1cards[i].rank == p1cards[i+1].rank){
+      pairs.push(p1cards[i].rank);
+    }
+  }
 
-	p1cards = p1hand.filter(function(val){
-	  return (val.rank !== pairs[0] && val.rank !== pairs[1]);
-	});
-			
-	p2cards = p2hand.filter(function(val){
-	  return (val.rank !== pairs[0] && val.rank !== pairs[1]);
-	});
-	p1cards = sortByRank(p1cards);
-	p2cards = sortByRank(p2cards);
+  p1cards = p1hand.filter(function(val){
+    return (val.rank !== pairs[0] && val.rank !== pairs[1]);
+  });
+      
+  p2cards = p2hand.filter(function(val){
+    return (val.rank !== pairs[0] && val.rank !== pairs[1]);
+  });
+  p1cards = sortByRank(p1cards);
+  p2cards = sortByRank(p2cards);
 
-	if(p1cards[0].rank > p2cards[0].rank){
-	  return "player1";
-	}
-	else if(p1cards[0].rank < p2cards[0].rank){
-	  return "player2";
-	}
-	else{
-	  return "tie";
-	}
+  if(p1cards[0].rank > p2cards[0].rank){
+    return "player1";
+  }
+  else if(p1cards[0].rank < p2cards[0].rank){
+    return "player2";
+  }
+  else{
+    return "tie";
+  }
   }
 
   else if(handStrength == "PAIR"){
-	var p1cards = p1hand.filter(function(val){
-	  return (val.rank !== handRank);  
-	});
-	var p2cards = p2hand.filter(function(val){
-	  return (val.rank !== handRank);
-	});
+  var p1cards = p1hand.filter(function(val){
+    return (val.rank !== handRank);  
+  });
+  var p2cards = p2hand.filter(function(val){
+    return (val.rank !== handRank);
+  });
 
-	var p1cards = sortByRank(p1cards);
-	var p2cards = sortByRank(p2cards);
+  var p1cards = sortByRank(p1cards);
+  var p2cards = sortByRank(p2cards);
 
-	for(var i = 0; i < 3; i++){
-	  if(p1cards[i].rank > p2cards[i].rank){
-	 	return "player1";
-	  }
-	  else if(p2cards[i].rank > p1cards[i].rank){
-		return "player2";
-	  }
-	}
-	return "tie";
+  for(var i = 0; i < 3; i++){
+    if(p1cards[i].rank > p2cards[i].rank){
+     return "player1";
+    }
+    else if(p2cards[i].rank > p1cards[i].rank){
+    return "player2";
+    }
+  }
+  return "tie";
   }
   //resolve high card tie!
   else {
- 	var p1cards = sortByRank(p1hand);
-	var p2cards = sortByRank(p2hand);
+   var p1cards = sortByRank(p1hand);
+  var p2cards = sortByRank(p2hand);
 
-	for(var i = 0; i < 5; i++){
-   	  if(p1cards[i].rank > p2cards[i].rank){
-		return "player1";
-	  }
-	  else if(p2cards[i].rank > p1cards[i].rank){
-		return "player2";
-	  }
-	}
-	return "tie";
+  for(var i = 0; i < 5; i++){
+       if(p1cards[i].rank > p2cards[i].rank){
+    return "player1";
+    }
+    else if(p2cards[i].rank > p1cards[i].rank){
+    return "player2";
+    }
+  }
+  return "tie";
   }
 }
 
 function handStrength(cards, board){
   var handStrength = {
     hand: "",
-	rank: 0,
-	strength: 0
+  rank: 0,
+  strength: 0
   };
-	 
+   
   hand = cards.concat(board);
 
   straightFlush = straightFlushRank(hand);
 
   if(straightFlush > 0){
     handStrength.hand = "straight flush";
-	handStrength.strength = 9;
-	handStrength.rank = straightFlush;
-	return handStrength;
+  handStrength.strength = 9;
+  handStrength.rank = straightFlush;
+  return handStrength;
   }
 
   foak = FOAKrank(hand);
 
   if(foak > 0){
- 	handStrength.hand = "foak";
-	handStrength.rank = foak;
-	handStrength.strength = 8;
-	return handStrength;
+   handStrength.hand = "foak";
+  handStrength.rank = foak;
+  handStrength.strength = 8;
+  return handStrength;
   }
 
   fullhouse = fullHouseRank(hand);
 
   if(fullhouse > 0){
-	handStrength.hand = "full house";
-	handStrength.rank = fullhouse;
-	handStrength.strength = 7;
-	return handStrength;
+  handStrength.hand = "full house";
+  handStrength.rank = fullhouse;
+  handStrength.strength = 7;
+  return handStrength;
   }
 
   flush = flushRank(hand);
 
   if(flush > 0){
-	handStrength.hand = "flush";
-	handStrength.rank = flush;
-	handStrength.strength = 6;
-	return handStrength;
+  handStrength.hand = "flush";
+  handStrength.rank = flush;
+  handStrength.strength = 6;
+  return handStrength;
   }
 
   straight = straightRank(hand);
 
   if(straight > 0){
- 	handStrength.hand = "straight";
-	handStrength.rank = straight;
-	handStrength.strength = 5;
-	return handStrength;
+   handStrength.hand = "straight";
+  handStrength.rank = straight;
+  handStrength.strength = 5;
+  return handStrength;
   }
 
   toak = TOAKrank(hand);
 
   if(toak > 0){
- 	handStrength.hand = "toak";
-	handStrength.rank = toak;
-	handStrength.strength = 4;
-	return handStrength;
+   handStrength.hand = "toak";
+  handStrength.rank = toak;
+  handStrength.strength = 4;
+  return handStrength;
   }
 
   twopair = twoPairRank(hand);
 
   if(twopair > 0){
-	handStrength.hand = "twopair";
-	handStrength.rank = twopair;
-	handStrength.strength = 3;
-	return handStrength;
+  handStrength.hand = "twopair";
+  handStrength.rank = twopair;
+  handStrength.strength = 3;
+  return handStrength;
   }
 
   pair = pairRank(hand);
 
   if(pair > 0){
-	handStrength.hand = "pair";
-	handStrength.rank = pair;
-	handStrength.strength = 2;
-	return handStrength;
+  handStrength.hand = "pair";
+  handStrength.rank = pair;
+  handStrength.strength = 2;
+  return handStrength;
   }
 
   highcard = highCardRank(hand);

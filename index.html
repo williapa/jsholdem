@@ -328,35 +328,33 @@ function flushRank(cards){
   return 0;
 }
 
-function straightRank(cards){
+function straightRank(cards) {
   var hand = sortByRank(cards);
+  var highestStraight = 0; // Keep track of the highest straight found
 
-  for(var i = 1; i < 11; i++){
-	haslowcard = false, hastwocard = false, hasthreecard = false, hasfourcard = false, hashighcard = false;
-	lowcard = i;
-	twocard = i+1;
-	threecard = i+2;
-	fourcard = i+3;
-	highcard = i+4;
+  for (var i = 1; i < 11; i++) {
+    var hasLowCard = false, hasTwoCard = false, hasThreeCard = false, hasFourCard = false, hasHighCard = false;
+    var lowCard = i, twoCard = i + 1, threeCard = i + 2, fourCard = i + 3, highCard = i + 4;
 
-	if(i == 1){
-	  lowcard = 14;
-	};
+    if (i == 1) { // Special case for Ace
+      lowCard = 14; // Ace is considered as the lowest card in a straight
+    }
 
-	for(var j = 0; j < hand.length; j++){
-      if(hand[j].rank == lowcard) haslowcard = true;
-      if(hand[j].rank == twocard) hastwocard = true;
-      if(hand[j].rank == threecard) hasthreecard = true;
-      if(hand[j].rank == fourcard) hasfourcard = true;
-      if(hand[j].rank == highcard) hashighcard = true;
-	};
+    for (var j = 0; j < hand.length; j++) {
+      if (hand[j].rank == lowCard) hasLowCard = true;
+      if (hand[j].rank == twoCard) hasTwoCard = true;
+      if (hand[j].rank == threeCard) hasThreeCard = true;
+      if (hand[j].rank == fourCard) hasFourCard = true;
+      if (hand[j].rank == highCard) hasHighCard = true;
+    }
 
-	if(haslowcard && hastwocard && hasthreecard && hasfourcard && hashighcard){
-      return highcard;	
-	}; 
-  };
+    // Check if all five cards are present to form a straight
+    if (hasLowCard && hasTwoCard && hasThreeCard && hasFourCard && hasHighCard) {
+      highestStraight = Math.max(highestStraight, highCard); // Update if this straight is the highest found
+    }
+  }
 
-  return 0;
+  return highestStraight; // Return the highest straight found, or 0 if none
 }
 
 function getFlushCards (cards){
