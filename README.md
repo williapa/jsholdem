@@ -21,7 +21,7 @@ user actions are announced with window.alert. This can be confusing, because it 
 There are no bugs. DO YOU HEAR ME? THERE ARE NO BUGS!!!
 
 # Future work
-
+- add timeout to opponent action when first to act (corresponding to animation length)
 - add stacks of chips instead of just showing the pot / bets as numbers
 - add test cases to make sure the poker logic works
 - add an event log for traceback purposes
